@@ -216,11 +216,19 @@ else
 fi
 
 # config-common
-if [ "$platform" = "netcore-n60-pro" ] || [ "$platform" = "netcore-n60-pro-512rom" ]; then
-    curl -s $mirror/openwrt/24-config-ipailna-high-power >> .config
-else
-    curl -s $mirror/openwrt/24-config-common >> .config
-fi
+# 配置选择，根据平台下载对应的默认 .config 文件
+case "$platform" in
+    cetron-ct3003-ubootmod|cmcc-a10-ubootmod|h3c-magic-nx30-pro|imou-lc-hx3001|nokia-ea0326gmp|qihoo-360t7)
+        curl -s "$mirror/openwrt/24-config-ax3000-common" >> .config
+        ;;
+    clx-s20p|24-config-musl-re-cp-03)
+        curl -s "$mirror/openwrt/24-config-ax6000-common" >> .config
+        ;;
+    netcore-n60-pro|netcore-n60-pro-512rom)
+        curl -s "$mirror/openwrt/24-config-ipailna-high-power" >> .config
+        ;;
+esac
+
 
 # bpf
 [ "$ENABLE_BPF" = "y" ] && curl -s $mirror/openwrt/generic/config-bpf >> .config
