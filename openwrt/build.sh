@@ -149,7 +149,7 @@ git clone --depth=1 https://$github/QuickWrt/immortalwrt-mt798x -b openwrt-24.10
 
 if [ -d openwrt ]; then
     cd openwrt
-    curl -Os https://openwrt.kejizero.xyz/openwrt/patch/key.tar.gz && tar zxf key.tar.gz && rm -f key.tar.gz
+    curl -Os $mirror/openwrt/patch/key.tar.gz && tar zxf key.tar.gz && rm -f key.tar.gz
 else
     echo -e "${RED_COLOR}Failed to download source code${RES}"
     exit 1
