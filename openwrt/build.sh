@@ -210,7 +210,7 @@ elif [ "$platform" = "clx-s20p" ]; then
 elif [ "$platform" = "netcore-n60-pro" ]; then
     curl -s $mirror/openwrt/24-config-musl-n60pro > .config
 elif [ "$platform" = "netcore-n60-pro-512rom" ]; then
-    curl -s $mirror/openwrt/24-config-musl-n60pro-512 > .config
+    curl -s $mirror/openwrt/24-config-musl-n60pro-512rom > .config
 else
     curl -s $mirror/openwrt/24-config-musl-re-cp-03 > .config
 fi
