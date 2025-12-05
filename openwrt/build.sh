@@ -182,6 +182,9 @@ scripts=(
   02-convert_translation.sh
   10-custom.sh
 )
+for script in "${scripts[@]}"; do
+  curl -sO "$mirror/openwrt/scripts/$script"
+done
 chmod 0755 *sh
 [ "$(whoami)" = "runner" ] && group "patching openwrt"
 bash 00-prepare_base.sh
