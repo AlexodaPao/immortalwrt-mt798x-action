@@ -55,6 +55,10 @@ mkdir -p files/root
 curl -so files/root/.bash_profile $mirror/openwrt/files/root/.bash_profile
 curl -so files/root/.bashrc $mirror/openwrt/files/root/.bashrc
 
+# rootfs files
+mkdir -p files/etc/opkg
+curl -so files/etc/opkg/distfeeds.conf $mirror/openwrt/files/etc/opkg/distfeeds.conf
+
 # kenrel Vermagic
 sed -ie 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
 grep HASH include/kernel-6.12 | awk -F'HASH-' '{print $2}' | awk '{print $1}' | md5sum | awk '{print $1}' > .vermagic
