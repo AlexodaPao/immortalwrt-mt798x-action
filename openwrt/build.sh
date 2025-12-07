@@ -73,11 +73,11 @@ export ROOT_PASSWORD=$ROOT_PASSWORD
 # print version
 echo -e "\r\n${GREEN_COLOR}Building $platform${RES}\r\n"
 case "$platform" in
-    cetron-ct3003-ubootmod)
+    cetron-ct3003)
         echo -e "${GREEN_COLOR}Model: Cetron CT3003 (U-Boot mod)${RES}"
         model="ct3003-ubootmod"
         ;;
-    cmcc-a10-ubootmod)
+    cmcc-a10)
         echo -e "${GREEN_COLOR}Model: CMCC A10 (U-Boot mod)${RES}"
         model="cmcc-a10"
         ;;
@@ -98,7 +98,7 @@ case "$platform" in
         model="360t7"
         ;;
     newland-nl-wr8103)
-        echo -e "${GREEN_COLOR}Model: newland-nl-wr8103${RES}"
+        echo -e "${GREEN_COLOR}Model: Newland-NL-WR8103${RES}"
         model="nl-wr8103"
         ;;
     clx-s20p)
@@ -113,6 +113,14 @@ case "$platform" in
         echo -e "${GREEN_COLOR}Model: Netcore N60 Pro (512MB ROM)${RES}"
         model="n60-pro-512"
         ;;
+    xiaomi-redmi-router-ax6000)
+        echo -e "${GREEN_COLOR}Model: Xiaomi-Redmi-Router-AX6000${RES}"
+        model="xiaomi-redmi-router-ax6000"
+        ;;
+    xiaomi-redmi-router-ax6000-512rom)
+        echo -e "${GREEN_COLOR}Model: Xiaomi-Redmi-Router-AX6000 (512MB ROM)${RES}"
+        model="xiaomi-redmi-router-ax6000-512rom"
+        ;;        
     jdcloud-re-cp-03)
         echo -e "${GREEN_COLOR}Model: JDCloud RE-CP-03${RES}"
         model="re-cp-03"
@@ -220,6 +228,10 @@ elif [ "$platform" = "netcore-n60-pro" ]; then
     curl -s $mirror/openwrt/24-config-musl-n60pro > .config
 elif [ "$platform" = "netcore-n60-pro-512rom" ]; then
     curl -s $mirror/openwrt/24-config-musl-n60pro-512rom > .config
+elif [ "$platform" = "xiaomi-redmi-router-ax6000" ]; then
+    curl -s $mirror/openwrt/24-config-musl-redmi-ax6000 > .config
+elif [ "$platform" = "xiaomi-redmi-router-ax6000-512rom" ]; then
+    curl -s $mirror/openwrt/24-config-musl-redmi-ax6000-512rom > .config
 else
     curl -s $mirror/openwrt/24-config-musl-re-cp-03 > .config
 fi
@@ -229,7 +241,7 @@ case "$platform" in
     cetron-ct3003-ubootmod|cmcc-a10-ubootmod|h3c-magic-nx30-pro|imou-lc-hx3001|nokia-ea0326gmp|qihoo-360t7|newland-nl-wr8103)
         curl -s "$mirror/openwrt/24-config-ax3000-common" >> .config
         ;;
-    clx-s20p|jdcloud-re-cp-03)
+    clx-s20p|jdcloud-re-cp-03|xiaomi-redmi-router-ax6000|xiaomi-redmi-router-ax6000-512rom)
         curl -s "$mirror/openwrt/24-config-ax6000-common" >> .config
         ;;
     netcore-n60-pro|netcore-n60-pro-512rom)
