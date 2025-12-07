@@ -97,6 +97,10 @@ case "$platform" in
         echo -e "${GREEN_COLOR}Model: 360 T7${RES}"
         model="360t7"
         ;;
+    newland-nl-wr8103)
+        echo -e "${GREEN_COLOR}Model: newland-nl-wr8103${RES}"
+        model="nl-wr8103"
+        ;;
     clx-s20p)
         echo -e "${GREEN_COLOR}Model: CLX S20P${RES}"
         model="s20p"
@@ -208,6 +212,8 @@ elif [ "$platform" = "nokia-ea0326gmp" ]; then
     curl -s $mirror/openwrt/24-config-musl-ea0326gmp > .config
 elif [ "$platform" = "qihoo-360t7" ]; then
     curl -s $mirror/openwrt/24-config-musl-360t7 > .config
+elif [ "$platform" = "newland-nl-wr8103" ]; then
+    curl -s $mirror/openwrt/24-config-musl-nl-wr8103 > .config
 elif [ "$platform" = "clx-s20p" ]; then
     curl -s $mirror/openwrt/24-config-musl-s20p > .config
 elif [ "$platform" = "netcore-n60-pro" ]; then
@@ -220,7 +226,7 @@ fi
 
 # config-common
 case "$platform" in
-    cetron-ct3003-ubootmod|cmcc-a10-ubootmod|h3c-magic-nx30-pro|imou-lc-hx3001|nokia-ea0326gmp|qihoo-360t7)
+    cetron-ct3003-ubootmod|cmcc-a10-ubootmod|h3c-magic-nx30-pro|imou-lc-hx3001|nokia-ea0326gmp|qihoo-360t7|newland-nl-wr8103)
         curl -s "$mirror/openwrt/24-config-ax3000-common" >> .config
         ;;
     clx-s20p|jdcloud-re-cp-03)
