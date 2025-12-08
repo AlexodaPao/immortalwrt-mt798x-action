@@ -62,10 +62,8 @@ jobs:
 
     - name: Setup variables
       run: |
-        sudo timedatectl set-timezone 'Asia/Shanghai'
         git config --global user.name 'actions'
         git config --global user.email 'action@github.com'
-        echo build_dir="/builder" >> "$GITHUB_ENV"
 
     - name: Show system
       run: |
@@ -91,7 +89,7 @@ jobs:
         bash <(curl -sS http://127.0.0.1:8080/build.sh) ${{ github.event.inputs.device }}
         cd openwrt
         tags=$(git branch --show-current)
-        echo "latest_release=$tags" >>$GITHUB_ENV
+        echo "latest_release=$tags"
 
     - name: Extensive logs after a failed compilation
       working-directory: /builder
@@ -152,17 +150,17 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.event.inputs.device }}-openwrt-${{ env.latest_release }}
+        name: ${{ github.event.inputs.device }}-openwrt-24.10
         path: ${{ env.build_dir }}/rom/*
 
     - name: Create release
       continue-on-error: true
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.latest_release }}
+        name: openwrt-24.10
         allowUpdates: true
-        tag: ${{ env.latest_release }}
+        tag: openwrt-24.10
         commit: main
         replacesArtifacts: true
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: ${{ env.build_dir }}/rom/*
+        artifacts: builder/rom/*
