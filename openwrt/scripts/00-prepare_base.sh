@@ -9,12 +9,24 @@ sed -i "s/10.0.0.1/$LAN/g" package/base-files/files/bin/config_generate
 # default WIFI NAME
 sed -i "s/ZeroWrt/$WIFI_NAME/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 
+# default WIFI PASSWORD
+sed -i "s/1234567890/$WIFI_PASSWORD/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+
 # default password
 if [ -n "$ROOT_PASSWORD" ]; then
     # sha256 encryption
     default_password=$(openssl passwd -5 $ROOT_PASSWORD)
     sed -i "s|^root:[^:]*:|root:${default_password}:|" package/base-files/files/etc/shadow
 fi
+
+# Docker
+rm -rf feeds/luci/applications/luci-app-dockerman
+git clone https://$gitea/zhao/luci-app-dockerman -b nft feeds/luci/applications/luci-app-dockerman
+rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
+git clone https://$gitea/zhao/packages_utils_docker feeds/packages/utils/docker
+git clone https://$gitea/zhao/packages_utils_dockerd feeds/packages/utils/dockerd
+git clone https://$gitea/zhao/packages_utils_containerd feeds/packages/utils/containerd
+git clone https://$gitea/zhao/packages_utils_runc feeds/packages/utils/runc
 
 # TTYD
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json

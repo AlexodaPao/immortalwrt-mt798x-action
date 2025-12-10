@@ -11,18 +11,26 @@ on:
         options:
           - 'cetron-ct3003'
           - 'cmcc-a10'
+          - 'cmcc-rax3000m-emmc'
+          - 'cmcc-rax3000m-nand'
+          - 'cmcc-rax3000me-nand'
           - 'umi-uax3000e'          
           - 'h3c-magic-nx30-pro'
           - 'imou-lc-hx3001'
           - 'nokia-ea0326gmp'
           - 'newland-nl-wr8103'
+          - 'philips-hy3000'
           - 'qihoo-360t7'
+          - 'xiaomi-mi-router-ax3000t'         
           - 'clx-s20p'
           - 'netcore-n60-pro'
           - 'netcore-n60-pro-512rom'
           - 'xiaomi-redmi-router-ax6000'
           - 'xiaomi-redmi-router-ax6000-512rom'
           - 'jdcloud-re-cp-03'
+          - 'all-mt7981-devices'
+          - 'all-mt7986-devices'
+          - 'all-high-power-devices'
       lan_addr:
         description: '🌐 设置默认 LAN IP 地址'
         required: true
@@ -32,7 +40,12 @@ on:
         description: '🛜 设置默认 WIFI 名称（可选，默认ZeroWrt）'
         required: false
         default: 'ZeroWrt'
-        type: string        
+        type: string
+      wifi_password:
+        description: '🆔 设置默认 WIFI 密码（可选，默认1234567890）'
+        required: false
+        default: '1234567890'
+        type: string          
       root_password:
         description: '🔐 设置默认 root 密码（可选，默认password）'
         required: false
@@ -106,7 +119,7 @@ jobs:
       id: compile
       continue-on-error: true
       run: |
-        export ${{ github.event.inputs.build_options }} LAN=${{ github.event.inputs.lan_addr }} WIFI_NAME=${{ github.event.inputs.wifi_name }}
+        export ${{ github.event.inputs.build_options }} LAN=${{ github.event.inputs.lan_addr }} WIFI_NAME=${{ github.event.inputs.wifi_name }} WIFI_PASSWORD=${{ github.event.inputs.wifi_password }}
         [ -n ${{ github.event.inputs.root_password }} ] && export ROOT_PASSWORD="${{ github.event.inputs.root_password }}"
         bash <(curl -sS http://127.0.0.1:8080/build.sh) ${{ github.event.inputs.device }}
         cd openwrt
@@ -124,27 +137,15 @@ jobs:
       working-directory: /builder
       run: |
         mkdir -p rom
-        if [[ "${{ github.event.inputs.device }}" == cetron-ct3003-ubootmod ]]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "cmcc-a10-ubootmod" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "h3c-magic-nx30-pro" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "imou-lc-hx3001" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "nokia-ea0326gmp" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "qihoo-360t7" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "clx-s20p" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "netcore-n60-pro" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "netcore-n60-pro-512rom" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        elif [ "${{ github.event.inputs.device }}" = "jdcloud-re-cp-03" ]; then
-          cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
-        fi
+        case "${{ github.event.inputs.device }}" in
+          cetron-ct3003|cmcc-a10|cmcc-rax3000m-emmc|cmcc-rax3000m-nand|cmcc-rax3000me-nand|\
+          h3c-magic-nx30-pro|imou-lc-hx3001|nokia-ea0326gmp|philips-hy3000|qihoo-360t7|\
+          newland-nl-wr8103|umi-uax3000e|xiaomi-mi-router-ax3000t|clx-s20p|netcore-n60-pro|\
+          netcore-n60-pro-512rom|xiaomi-redmi-router-ax6000|xiaomi-redmi-router-ax6000-512rom|\
+          jdcloud-re-cp-03|all-mt7981-devices|all-mt7986-devices|all-high-power-devices)
+              cp -a openwrt/bin/targets/mediatek/*/*-sysupgrade.bin rom/
+              ;;
+        esac
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4

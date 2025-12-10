@@ -69,18 +69,32 @@ export platform toolchain_arch
 
 # build.sh flags
 export ROOT_PASSWORD=$ROOT_PASSWORD
+export WIFI_NAME=$WIFI_NAME
+export WIFI_PASSWORD=$WIFI_PASSWORD
 
 # print version
 echo -e "\r\n${GREEN_COLOR}Building $platform${RES}\r\n"
 case "$platform" in
     cetron-ct3003)
         echo -e "${GREEN_COLOR}Model: Cetron CT3003 (U-Boot mod)${RES}"
-        model="ct3003-ubootmod"
+        model="ct3003"
         ;;
     cmcc-a10)
         echo -e "${GREEN_COLOR}Model: CMCC A10 (U-Boot mod)${RES}"
         model="cmcc-a10"
         ;;
+    cmcc-rax3000m-emmc)
+        echo -e "${GREEN_COLOR}Model: CMCC RAX3000M EMMC${RES}"
+        model="cmcc-rax3000m-emmc"
+        ;;
+    cmcc-rax3000m-nand)
+        echo -e "${GREEN_COLOR}Model: CMCC RAX3000M NAND${RES}"
+        model="cmcc-rax3000m-nand"
+        ;;
+    cmcc-rax3000me-nand)
+        echo -e "${GREEN_COLOR}Model: CMCC RAX3000ME NAND${RES}"
+        model="cmcc-rax3000me-nand"
+        ;;        
     umi-uax3000e)
         echo -e "${GREEN_COLOR}Model: UMI-UAX3000E${RES}"
         model="uax3000e"
@@ -97,10 +111,18 @@ case "$platform" in
         echo -e "${GREEN_COLOR}Model: Nokia EA0326GMP${RES}"
         model="ea0326gmp"
         ;;
+    philips-hy3000)
+        echo -e "${GREEN_COLOR}Model: Philips HY3000${RES}"
+        model="hy3000"
+        ;;    
     qihoo-360t7)
         echo -e "${GREEN_COLOR}Model: 360 T7${RES}"
         model="360t7"
         ;;
+    xiaomi-mi-router-ax3000t)
+        echo -e "${GREEN_COLOR}Model: Xiaomi-Mi-Router-AX3000T${RES}"
+        model="mi-ax300t"
+        ;;        
     newland-nl-wr8103)
         echo -e "${GREEN_COLOR}Model: Newland-NL-WR8103${RES}"
         model="nl-wr8103"
@@ -129,6 +151,18 @@ case "$platform" in
         echo -e "${GREEN_COLOR}Model: JDCloud RE-CP-03${RES}"
         model="re-cp-03"
         ;;
+    all-mt7981-devices)
+        echo -e "${GREEN_COLOR}Model: ALL MT7981 Devices${RES}"
+        model="all-mt7981-devices"
+        ;;
+    all-mt7986-devices)
+        echo -e "${GREEN_COLOR}Model: ALL MT7986 Devices${RES}"
+        model="all-mt7986-devices"
+        ;;
+    all-high-power-devices)
+        echo -e "${GREEN_COLOR}Model: ALL High Power Devices${RES}"
+        model="all-high-power-devices"
+        ;;
 esac
 
 # print build opt
@@ -153,8 +187,18 @@ print_status() {
 }
 [ -n "$LAN" ] && echo -e "${GREEN_COLOR}LAN:${RES} $LAN" || echo -e "${GREEN_COLOR}LAN:${RES} 10.0.0.1"
 [ -n "$ROOT_PASSWORD" ] \
-    && echo -e "${GREEN_COLOR}Default Password:${RES} ${BLUE_COLOR}$ROOT_PASSWORD${RES}" \
-    || echo -e "${GREEN_COLOR}Default Password:${RES} (${YELLOW_COLOR}No password${RES})"
+    && echo -e "${GREEN_COLOR}ROOT PASSWORD:${RES} ${BLUE_COLOR}$ROOT_PASSWORD${RES}" \
+    || echo -e "${GREEN_COLOR}ROOT PASSWORD:${RES} (${YELLOW_COLOR}No password${RES})"
+[ -n "$WIFI_NAME" ] \
+    && echo -e "${GREEN_COLOR}WIFI NAME:${RES} ${BLUE_COLOR}$WIFI_NAME${RES}" \
+    || echo -e "${GREEN_COLOR}WIFI NAME:${RES} (${YELLOW_COLOR}No WIFI NAME${RES})"
+[ -n "$WIFI_PASSWORD" ] \
+    && echo -e "${GREEN_COLOR}WIFI NAME:${RES} ${BLUE_COLOR}$WIFI_PASSWORD${RES}" \
+    || echo -e "${GREEN_COLOR}WIFI NAME:${RES} (${YELLOW_COLOR}No WIFI PASSWORD${RES})"
+print_status "ENABLE_BPF"        "$ENABLE_BPF" "$GREEN_COLOR" "$RED_COLOR"
+print_status "BUILD_FAST"        "$BUILD_FAST"
+print_status "ENABLE_DOCKER"     "$ENABLE_DOCKER"
+print_status "ENABLE_SAMBA4"     "$ENABLE_SAMBA4"
 
 # clean old files
 rm -rf openwrt
@@ -212,45 +256,84 @@ find feeds -type f -name "*.orig" -exec rm -f {} \;
 rm -f 0*-*.sh 10-custom.sh
 
 # Load devices Config
-if [ "$platform" = "cetron-ct3003-ubootmod" ]; then
-    curl -s $mirror/openwrt/24-config-musl-ct3003 > .config
-elif [ "$platform" = "cmcc-a10-ubootmod" ]; then
-    curl -s $mirror/openwrt/24-config-musl-a10 > .config
-elif [ "$platform" = "umi-uax3000e" ]; then
-    curl -s $mirror/openwrt/24-config-musl-uax3000e > .config    
-elif [ "$platform" = "h3c-magic-nx30-pro" ]; then
-    curl -s $mirror/openwrt/24-config-musl-nx30-pro > .config
-elif [ "$platform" = "imou-lc-hx3001" ]; then
-    curl -s $mirror/openwrt/24-config-musl-hx3001 > .config
-elif [ "$platform" = "nokia-ea0326gmp" ]; then
-    curl -s $mirror/openwrt/24-config-musl-ea0326gmp > .config
-elif [ "$platform" = "qihoo-360t7" ]; then
-    curl -s $mirror/openwrt/24-config-musl-360t7 > .config
-elif [ "$platform" = "newland-nl-wr8103" ]; then
-    curl -s $mirror/openwrt/24-config-musl-nl-wr8103 > .config
-elif [ "$platform" = "clx-s20p" ]; then
-    curl -s $mirror/openwrt/24-config-musl-s20p > .config
-elif [ "$platform" = "netcore-n60-pro" ]; then
-    curl -s $mirror/openwrt/24-config-musl-n60pro > .config
-elif [ "$platform" = "netcore-n60-pro-512rom" ]; then
-    curl -s $mirror/openwrt/24-config-musl-n60pro-512rom > .config
-elif [ "$platform" = "xiaomi-redmi-router-ax6000" ]; then
-    curl -s $mirror/openwrt/24-config-musl-redmi-ax6000 > .config
-elif [ "$platform" = "xiaomi-redmi-router-ax6000-512rom" ]; then
-    curl -s $mirror/openwrt/24-config-musl-redmi-ax6000-512rom > .config
-else
-    curl -s $mirror/openwrt/24-config-musl-re-cp-03 > .config
-fi
+case "$platform" in
+    cetron-ct3003)
+        curl -s $mirror/openwrt/24-config-musl-ct3003 > .config
+        ;;
+    cmcc-a10)
+        curl -s $mirror/openwrt/24-config-musl-a10 > .config
+        ;;
+    cmcc-rax3000m-emmc)
+        curl -s $mirror/openwrt/24-config-musl-rax3000m-emmc > .config
+        ;;
+    cmcc-rax3000m-nand)
+        curl -s $mirror/openwrt/24-config-musl-rax3000m-nand > .config
+        ;;
+    cmcc-rax3000me-nand)
+        curl -s $mirror/openwrt/24-config-musl-rax3000me-nand > .config
+        ;;
+    umi-uax3000e)
+        curl -s $mirror/openwrt/24-config-musl-uax3000e > .config
+        ;;
+    h3c-magic-nx30-pro)
+        curl -s $mirror/openwrt/24-config-musl-nx30-pro > .config
+        ;;
+    imou-lc-hx3001)
+        curl -s $mirror/openwrt/24-config-musl-hx3001 > .config
+        ;;
+    nokia-ea0326gmp)
+        curl -s $mirror/openwrt/24-config-musl-ea0326gmp > .config
+        ;;
+    philips-hy3000)
+        curl -s $mirror/openwrt/24-config-musl-hy3000 > .config
+        ;;
+    qihoo-360t7)
+        curl -s $mirror/openwrt/24-config-musl-360t7 > .config
+        ;;
+    newland-nl-wr8103)
+        curl -s $mirror/openwrt/24-config-musl-nl-wr8103 > .config
+        ;;
+    xiaomi-mi-router-ax3000t)
+        curl -s $mirror/openwrt/24-config-musl-xiaomi-ax3000t > .config
+        ;;        
+    clx-s20p)
+        curl -s $mirror/openwrt/24-config-musl-s20p > .config
+        ;;
+    netcore-n60-pro)
+        curl -s $mirror/openwrt/24-config-musl-n60pro > .config
+        ;;
+    netcore-n60-pro-512rom)
+        curl -s $mirror/openwrt/24-config-musl-n60pro-512rom > .config
+        ;;
+    xiaomi-redmi-router-ax6000)
+        curl -s $mirror/openwrt/24-config-musl-redmi-ax6000 > .config
+        ;;
+    xiaomi-redmi-router-ax6000-512rom)
+        curl -s $mirror/openwrt/24-config-musl-redmi-ax6000-512rom > .config
+        ;;
+    jdcloud-re-cp-03)
+        curl -s $mirror/openwrt/24-config-musl-re-cp-03 > .config
+        ;;
+    all-mt7981-devices)
+        curl -s $mirror/openwrt/24-config-musl-all-mt7981-devices > .config
+        ;;
+    all-mt7986-devices)
+        curl -s $mirror/openwrt/24-config-musl-all-mt7986-devices > .config
+        ;;
+    all-high-power-devices)
+        curl -s $mirror/openwrt/24-config-musl-all-high-power-devices > .config
+        ;;
+esac
 
 # config-common
 case "$platform" in
-    cetron-ct3003|cmcc-a10|umi-uax3000e|h3c-magic-nx30-pro|imou-lc-hx3001|nokia-ea0326gmp|qihoo-360t7|newland-nl-wr8103)
+    cetron-ct3003|cmcc-a10|cmcc-rax3000m-emmc|umi-uax3000e|h3c-magic-nx30-pro|imou-lc-hx3001|nokia-ea0326gmp|philips-hy3000|qihoo-360t7|newland-nl-wr8103|xiaomi-mi-router-ax3000t|all-mt7981-devices)
         curl -s "$mirror/openwrt/24-config-ax3000-common" >> .config
         ;;
-    clx-s20p|jdcloud-re-cp-03|xiaomi-redmi-router-ax6000|xiaomi-redmi-router-ax6000-512rom)
+    jdcloud-re-cp-03|xiaomi-redmi-router-ax6000|xiaomi-redmi-router-ax6000-512rom|all-mt7986-devices)
         curl -s "$mirror/openwrt/24-config-ax6000-common" >> .config
         ;;
-    netcore-n60-pro|netcore-n60-pro-512rom)
+    clx-s20p|netcore-n60-pro|netcore-n60-pro-512rom|all-high-power-devices)
         curl -s "$mirror/openwrt/24-config-ipailna-high-power" >> .config
         ;;
 esac
@@ -261,11 +344,21 @@ curl -s "$mirror/openwrt/24-config-general" >> .config
 # bpf
 [ "$ENABLE_BPF" = "y" ] && curl -s $mirror/openwrt/generic/config-bpf >> .config
 
+# docker
+[ "$ENABLE_DOCKER" = "y" ] && curl -s $mirror/openwrt/generic/config-docker >> .config
+
+# samba4
+[ "$ENABLE_SAMBA4" = "y" ] && curl -s $mirror/openwrt/generic/config-samba4 >> .config
+    
 # Toolchain Cache
 if [ "$BUILD_FAST" = "y" ]; then
     echo -e "\n${GREEN_COLOR}Download Toolchain ...${RES}"
     [ -f /etc/os-release ] && source /etc/os-release
-    TOOLCHAIN_URL=https://github.com/QuickWrt/openwrt_caches/releases/download/openwrt-24.10
+    if [ "$(whoami)" = "zhao" ]; then
+        TOOLCHAIN_URL="http://127.0.0.1:8080/openwrt_caches"
+    else
+        TOOLCHAIN_URL="https://github.com/QuickWrt/openwrt_caches/releases/download/openwrt-24.10"
+    fi
     curl -L ${TOOLCHAIN_URL}/toolchain_musl_${toolchain_arch}_gcc-13.tar.zst -o toolchain.tar.zst $CURL_BAR
     echo -e "\n${GREEN_COLOR}Process Toolchain ...${RES}"
     tar -I "zstd" -xf toolchain.tar.zst

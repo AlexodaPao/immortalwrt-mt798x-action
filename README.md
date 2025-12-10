@@ -1,13 +1,13 @@
 <div align="center">
-<img width="768" src="https://cdn.jsdelivr.net/gh/haiibo/OpenWrt/images/openwrt.png"/>
-<h1> Mediatek — 多设备固件云编译</h1>
+<img width="768" src="images/zerowrt.png"/>
+<h1>OpenWrt — 多设备固件云编译</h1>
 
 <img src="https://img.shields.io/github/downloads/OPPEN321/immortalwrt-mt798x-action/total.svg?style=for-the-badge&color=32C955"/>
 <img src="https://img.shields.io/github/stars/OPPEN321/immortalwrt-mt798x-action.svg?style=for-the-badge&color=orange"/>
 <img src="https://img.shields.io/github/forks/OPPEN321/immortalwrt-mt798x-action.svg?style=for-the-badge&color=ff69b4"/>
 <img src="https://img.shields.io/github/license/OPPEN321/immortalwrt-mt798x-action.svg?style=for-the-badge&color=blueviolet"/>
 
-[![](https://img.shields.io/badge/-目录:-696969.svg)](#readme) [![](https://img.shields.io/badge/-项目说明-FFFFFF.svg)](#项目说明-) [![](https://img.shields.io/badge/-固件特色-FFFFFF.svg)](#固件特色-) [![](https://img.shields.io/badge/-固件下载-FFFFFF.svg)](#固件下载-) [![](https://img.shields.io/badge/-近期更新-FFFFFF.svg)](#近期更新-) [![](https://img.shields.io/badge/-插件预览-FFFFFF.svg)](#插件预览-) [![](https://img.shields.io/badge/-定制固件-FFFFFF.svg)](#定制固件-) [![](https://img.shields.io/badge/-特别提示-FFFFFF.svg)](#特别提示-) [![](https://img.shields.io/badge/-鸣谢-FFFFFF.svg)](#鸣谢-)
+[![](https://img.shields.io/badge/-目录:-696969.svg)](#readme) [![](https://img.shields.io/badge/-项目说明-FFFFFF.svg)](#项目说明-) [![](https://img.shields.io/badge/-固件特色-FFFFFF.svg)](#固件特色-) [![](https://img.shields.io/badge/-固件下载-FFFFFF.svg)](#固件下载-) [![](https://img.shields.io/badge/-近期更新-FFFFFF.svg)](#近期更新-) [![](https://img.shields.io/badge/-插件预览-FFFFFF.svg)](#插件预览-) [![](https://img.shields.io/badge/-定制固件-FFFFFF.svg)](#定制固件-) [![](https://img.shields.io/badge/-特别提示-FFFFFF.svg)](#特别提示-) [![](https://img.shields.io/badge/-特殊变量-FFFFFF.svg)](#特殊变量-) [![](https://img.shields.io/badge/-鸣谢-FFFFFF.svg)](#鸣谢-)
 </div>
 
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
@@ -19,172 +19,121 @@
 - 第一次使用请采用全新安装，避免出现升级失败以及其他一些可能的 BUG
 
 ## 固件特色 [![](https://img.shields.io/badge/-本项目固件特色-FFFFFF.svg)](#固件特色-)
-1. 固件每天定时自动编译，以确保获得最新体验
-2. 集成部分常用有线、无线、3G / 4G 网卡驱动
-3. 集成中文版 netdata 实时监控插件，小白也能轻松看懂系统概况
-4. 集成 iStore 应用商店，可根据自己需求自由安装所需插件
-5. 集成 Docker 服务，可在 OpenWrt 内自由部署 Docker 应用
-6. 集成应用过滤插件，支持游戏、视频、聊天、下载等 APP 过滤
-7. 集成在线用户插件，可查看所有在线用户 IP 地址与实时速率等
-8. ARMv8 系列固件内置晶晨宝盒，支持在线更新固件及内核等
+📌 **固件特色亮点**
+### 1️⃣ 支持主流 Mediatek 系列路由器
+持续适配市面上的 MTK 设备，并不断新增机型支持，覆盖范围持续扩大。
+### 2️⃣ 扩展大容量机型支持
+已适配包括 **磊科 N60 PRO 512MB ROM** 在内的大容量机型，让更多增强设备也能直接刷写使用。
+### 3️⃣ 精简插件并集成作者私有源
+固件保持轻量精简，并内置作者自建软件源，支持通过更新软件源仓库自由安装扩展插件。
+### 4️⃣ 内置 LLVM-BPF 支持
+原生支持 eBPF 生态，可直接从作者私有源安装 **大鹅 / BPF 工具链** 等高级功能。
+### 5️⃣ 一键风格化 iStoreOS
+提供一键美化脚本，可快速对 iStoreOS 进行 UI 风格优化与增强：  
+`bash <(curl -fsSL https://opkg.kejizero.xyz/Scripts/custom.sh)`
+### 6️⃣ 支持一键在线 / 本地编译固件
+提供自动化编译脚本，无需复杂配置即可生成定制固件，轻松完成个性化构建。
+
+## 固件下载 [![](https://img.shields.io/badge/-编译状态及下载链接-FFFFFF.svg)](#固件下载-)
+| 设备型号 | 下载链接 |
+| -------- | -------- |
+| 🟢 **Cetron CT3003** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-cetron_ct3003-ubootmod-squashfs-sysupgrade.bin) |
+| 🟢 **CMCC A10** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-cmcc_a10-ubootmod-squashfs-sysupgrade.bin) |
+| 🟢 **UMI UAX3000E** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/tag/openwrt-24.10) |
+| 🟢 **Philips HY3000** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/tag/openwrt-24.10) |
+| 🟢 **Newland NL-WR8103** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/tag/openwrt-24.10) |
+| 🟢 **H3C Magic NX30 Pro** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/tag/openwrt-24.10) |
+| 🟢 **Imou LC-HX3001** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/tag/openwrt-24.10) |
+| 🟢 **Nokia EA0326GMP** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-nokia_ea0326gmp-squashfs-sysupgrade.bin) |
+| 🟢 **Qihoo 360T7** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/tag/openwrt-24.10) |
+| 🟢 **CLX S20P** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-clx_s20p-squashfs-sysupgrade.bin) |
+| 🟢 **Netcore N60 Pro** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-netcore_n60-pro-squashfs-sysupgrade.bin) |
+| 🟢 **Netcore N60 Pro 512ROM** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-netcore_n60-pro-512rom-squashfs-sysupgrade.bin) |
+| 🟢 **JDCloud RE-CP-03** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-jdcloud_re-cp-03-squashfs-sysupgrade.bin) |
+| 🟢 **Xiaomi Redmi Router AX6000** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-xiaomi_redmi-router-ax6000-squashfs-sysupgrade.bin) |
+| 🟢 **Xiaomi Redmi Router AX6000 512ROM** | [![下载](https://img.shields.io/badge/下载-OpenWrt-blue)](https://github.com/OPPEN321/immortalwrt-mt798x-action/releases/download/openwrt-24.10/zerowrt-mediatek-filogic-xiaomi_redmi-router-ax6000-512rom-squashfs-sysupgrade.bin) |
+
+✅ 可用
+
+❌ 不可用
+
+⏳ 计划中
 
 ## 近期更新 [![](https://img.shields.io/badge/-近期固件更新-FFFFFF.svg)](#近期更新-)
 🤣努力修复中……
 
-
 ## 插件预览 [![](https://img.shields.io/badge/-固件插件及功能预览-FFFFFF.svg)](#插件预览-)
 <details>
-<summary><b>&nbsp;ARMv8 盒子 Mini 精简版本插件预览</b></summary>
-<br/>
-<img src="https://cdn.jsdelivr.net/gh/haiibo/OpenWrt/images/mini.png"/>
-</details>
-
-<details>
-<summary><b>&nbsp;ARMv8 盒子 Plus 多功能版插件预览</b></summary>
-<br/>
-<img src="https://cdn.jsdelivr.net/gh/haiibo/OpenWrt/images/plus.png"/>
-</details>
-
-<details>
-<summary><b>&nbsp;X86、R2S、R4S 等软路由插件预览</b></summary>
-<br/>
+<summary><b>LuCI 菜单概览</b></summary>
 <details>
 <summary><b>├── 状态</b></summary>
-　├── 概况<br/>
+　├── 概览<br/>
+　├── 路由<br/>
 　├── 防火墙<br/>
-　├── 路由表<br/>
 　├── 系统日志<br/>
-　├── 内核日志<br/>
 　├── 系统进程<br/>
 　├── 实时信息<br/>
-　├── 实时监控<br/>
-　├── 在线用户<br/>
-　├── WireGuard 状态<br/>
-　├── 负载均衡<br/>
+　├── WireGuard<br/>
 　└── 释放内存
 </details>
 <details>
 <summary><b>├── 系统</b></summary>
 　├── 系统<br/>
 　├── 管理权<br/>
-　├── TTYD 终端<br/>
 　├── 软件包<br/>
 　├── 启动项<br/>
 　├── 计划任务<br/>
 　├── 挂载点<br/>
-　├── 磁盘管理<br/>
+　├── 终端<br/>
+　├── LED 配置<br/>
 　├── 备份/升级<br/>
-　├── 自定义命令<br/>
 　├── 定时重启<br/>
-　├── 文件传输<br/>
-　├── Argon 主题设置<br/>
-　├── 重启<br/>
-　└── 关机
+　├── 主题设置<br/>
+　└── 重启
 </details>
 <details>
 <summary><b>├── 服务</b></summary>
-　├── PassWall<br/>
-　├── PassWall2<br/>
-　├── Hello World<br/>
-　├── iKoolProxy 滤广告<br/>
-　├── V2ray 服务器<br/>
-　├── 广告屏蔽大师 Plus+<br/>
-　├── ShadowSocksR Plus+<br/>
-　├── AdGuard Home<br/>
 　├── 应用过滤<br/>
-　├── MosDNS<br/>
-　├── 全能推送<br/>
+　├── HomeProxy<br/>
+　├── AdGuard Home<br/>
 　├── 微信推送<br/>
-　├── 上网时间控制<br/>
-　├── 解锁网易云灰色歌曲<br/>
-　├── OpenClash<br/>
+　├── ACME 证书<br/>
 　├── 动态 DNS<br/>
-　├── MultiSD_Lite<br/>
-　├── SmartDNS<br/>
-　├── 网络唤醒<br/>
-　├── 迅雷快鸟<br/>
-　├── Frps<br/>
-　├── UU游戏加速器<br/>
-　├── UPnP<br/>
-　├── KMS 服务器<br/>
-　├── AirPlay 2 音频接收<br/>
-　├── udpxy<br/>
-　├── Nps 内网穿透<br/>
+　├── Watchcat<br/>
+　├── 3cat<br/>   
 　├── uHTTPd<br/>
-　├── Frp 内网穿透<br/>
-　└── MWAN3 分流助手
-</details>
-<details>
-<summary><b>├── Docker</b></summary>
-　├── 概览<br/>
-　├── 容器<br/>
-　├── 镜像<br/>
-　├── 网络<br/>
-　├── 存储卷<br/>
-　├── 事件<br/>
-　└── 设置
+　├── UPnp IGD 和 PCP<br/>
+　├── Vlmcsd KMS 服务器<br/>
+　└── 网络唤醒
 </details>
 <details>
 <summary><b>├── 网络存储</b></summary>
-　├── 文件浏览器<br/>
-　├── 可道云<br/>
-　├── NFS 管理<br/>
-　├── 微力同步<br/>
-　├── Alist 文件列表<br/>
-　├── qBittorrent<br/>
-　├── USB 打印服务器<br/>
-　├── 硬盘休眠<br/>
-　├── 挂载 SMB 网络共享<br/>
-　├── 网络共享<br/>
-　├── FTP 服务器<br/>
-　├── Rclone<br/>
-　├── Aria2 配置<br/>
-　├── miniDLNA<br/>
-　└── Transmission
-</details>
-<details>
-<summary><b>├── VPN</b></summary>
-　├── N2N v2 VPN<br/>
-　├── SoftEther VPN 服务器<br/>
-　├── OpenVPN 服务器<br/>
-　├── PPTP VPN 服务器<br/>
-　├── IPSec VPN 服务器<br/>
-　└── ZeroTier
+　└── Aria2
 </details>
 <details>
 <summary><b>├── 网络</b></summary>
 　├── 接口<br/>
+　├── 无线<br/>   
+　├── 路由<br/>
 　├── DHCP/DNS<br/>
-　├── 主机名<br/>
-　├── IP/MAC 绑定<br/>
-　├── 静态路由<br/>
+　├── IP/MAC绑定<br/>   
+　├── 网络诊断<br/>
+　├── SQM 队列管理<br/>
 　├── 防火墙<br/>
-　├── 诊断<br/>
-　├── Socat<br/>
-　├── SQM QoS<br/>
+　├── Bandix<br/>
 　├── 网速控制<br/>
-　├── 多线多拨<br/>
-　├── 负载均衡<br/>
-　└── Turbo ACC 网络加速
-</details>
-<details>
-<summary><b>├── 带宽监控</b></summary>
-　├── 显示<br/>
-　├── 配置<br/>
-　├── 备份<br/>
-　├── 网速监控<br/>
-　└── 实时流量监测
+　└── 网络加速
 </details>
 　└── <b>退出</b>
 </details>
 
 ## 定制固件 [![](https://img.shields.io/badge/-项目基本编译教程-FFFFFF.svg)](#定制固件-)
 1. 首先要登录 Gihub 账号，然后 Fork 此项目到你自己的 Github 仓库
-2. 修改 `configs` 目录对应文件添加或删除插件，或者上传自己的 `xx.config` 配置文件
+2. 修改 `openwrt` 目录对应文件 `24-config-general` 添加或删除插件，或者上传自己的配置文件并重命名为 `24-config-general`
 3. 插件对应名称及功能请参考恩山网友帖子：[Applications 添加插件应用说明](https://www.right.com.cn/forum/thread-3682029-1-1.html)
-4. 如需修改默认 IP、添加或删除插件包以及一些其他设置请在 `diy-script.sh` 文件内修改
-5. 添加或修改 `xx.yml` 文件，最后点击 `Actions` 运行要编译的 `workflow` 即可开始编译
-6. 编译大概需要3-5小时，编译完成后在仓库主页 [Releases](https://github.com/haiibo/OpenWrt/releases) 对应 Tag 标签内下载固件
+4. 如需修改默认 IP、WIFI名称、ROOT密码，可在 Actions 页面修改自定义配置后，点击 Run workflow 即可开始在线编译
+5. 编译大概需要1小时，编译完成后在仓库主页 [Releases](OPPEN321/immortalwrt-mt798x-action) 对应 Tag 标签内下载固件
+
 <details>
 <summary><b>&nbsp;如果你觉得修改 config 文件麻烦，那么你可以点击此处尝试本地提取</b></summary>
 
@@ -207,13 +156,13 @@
 3. 下载源代码，更新 feeds 并安装到本地
 
    ```bash
-   git clone https://github.com/coolsnowwolf/lede
-   cd lede
+   git clone https://github.com/QuickWrt/immortalwrt-mt798x
+   cd immortalwrt-mt798x
    ./scripts/feeds update -a
    ./scripts/feeds install -a
    ```
 
-4. 复制 diy-script.sh 文件内所有内容到命令行，添加自定义插件和自定义设置
+4. 依次复制 openwrt/scripts 目录下的所有 x.sh 里的内容，添加自定义插件和自定义设置
 
 5. 命令行输入 `make menuconfig` 选择配置，选好配置后导出差异部分到 seed.config 文件
 
@@ -229,6 +178,33 @@
    **如果看不懂编译界面可以参考 YouTube 视频：[软路由固件 OpenWrt 编译界面设置](https://www.youtube.com/watch?v=jEE_J6-4E3Y&list=WL&index=7)**
 </details>
 
+## 特殊变量 [![](https://img.shields.io/badge/-为该项目启动特殊变量-FFFFFF.svg)](#特殊变量-)
+
+### 启用 [eBPF](https://docs.kernel.org/bpf/) 支持
+##### 只需在构建固件前在构建选项中加入该选项即可启用 eBPF 支持
+
+```
+ENABLE_BPF=y
+```
+
+### 快速构建
+##### 只需在构建固件前在构建选项中加入该选项即可启用快速构建
+
+```
+BUILD_FAST=y
+```
+
+### Docker
+##### 只需在构建固件前在构建选项中加入该选项即可在固件中加入 DOCKER
+```
+BUILD_DOCKER=y
+```
+
+### SAMBA4
+##### 只需在构建固件前在构建选项中加入该选项即可在固件中加入 SAMBA4
+```
+ENABLE_SAMBA4=y
+```
 
 ## 特别提示 [![](https://img.shields.io/badge/-个人免责声明-FFFFFF.svg)](#特别提示-)
 
@@ -246,7 +222,10 @@
 | [Ophub](https://github.com/ophub) | [SuLingGG](https://github.com/SuLingGG) | [QiuSimons](https://github.com/QiuSimons) | [IvanSolis1989](https://github.com/IvanSolis1989) |
 | <img width="100" src="https://avatars.githubusercontent.com/u/68696949"/> | <img width="100" src="https://avatars.githubusercontent.com/u/22287562"/> | <img width="100" src="https://avatars.githubusercontent.com/u/45143996"/> | <img width="100" src="https://avatars.githubusercontent.com/u/44228691"/> |
 
-
+## ⭐ 支持项目
+**如果您喜欢这个项目，请在 GitHub 上点个 Star 支持一下！**
 <a href="#readme">
+[![Stargazers over time](https://starchart.cc/OPPEN321/immortalwrt-mt798x-action.svg?variant=adaptive)](https://starchart.cc/OPPEN321/immortalwrt-mt798x-action)
+
 <img src="https://img.shields.io/badge/-返回顶部-FFFFFF.svg" title="返回顶部" align="right"/>
 </a>
